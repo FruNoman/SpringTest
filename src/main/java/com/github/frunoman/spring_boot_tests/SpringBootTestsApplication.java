@@ -1,6 +1,8 @@
 package com.github.frunoman.spring_boot_tests;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
@@ -28,13 +30,26 @@ public class SpringBootTestsApplication {
         return configurer;
     }
 
+//    @Bean
+//    @Scope("thread")
+//    public WebDriver firefoxDriver() {
+//        System.setProperty("webdriver.gecko.driver", this.getClass().getClassLoader().getResource("geckodriver").getPath());
+//        FirefoxDriver driver = new FirefoxDriver();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+//        driver.manage().window().maximize();
+//        return driver;
+//    }
+
     @Bean
     @Scope("thread")
-    public WebDriver webDriver() {
-        System.setProperty("webdriver.gecko.driver", this.getClass().getClassLoader().getResource("geckodriver").getPath());
-        FirefoxDriver driver =  new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+    public WebDriver chromeDriver() {
+        System.setProperty("webdriver.chrome.driver", this.getClass().getClassLoader().getResource("chromedriver").getPath());
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--remote-debugging-port=9515");
+        ChromeDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         return driver;
     }
 }
