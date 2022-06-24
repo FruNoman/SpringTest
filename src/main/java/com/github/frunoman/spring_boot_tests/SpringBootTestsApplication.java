@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +16,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.SimpleThreadScope;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Random;
 
@@ -36,10 +40,14 @@ public class SpringBootTestsApplication {
     @Bean
     @Primary
     @Scope("thread")
-    public WebDriver firefoxDriver() {
+    public WebDriver firefoxDriver() throws MalformedURLException {
 //        System.setProperty("webdriver.gecko.driver", this.getClass().getClassLoader().getResource("geckodriver").getPath());
         WebDriverManager.firefoxdriver().setup();
-        FirefoxDriver driver = new FirefoxDriver();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName","firefox");
+        capabilities.setCapability("platformName","LINUX");
+
+        RemoteWebDriver driver = new RemoteWebDriver(new URL("http://172.17.0.1:4675/wd/hub"),capabilities);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
         return driver;
