@@ -32,16 +32,16 @@ public class SpringBootTestsApplication {
         return configurer;
     }
 
-    @Bean
-    @Primary
-    @Scope("thread")
-    public WebDriver firefoxDriver() {
-        System.setProperty("webdriver.gecko.driver", this.getClass().getClassLoader().getResource("geckodriver").getPath());
-        FirefoxDriver driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        driver.manage().window().maximize();
-        return driver;
-    }
+//    @Bean
+//    @Primary
+//    @Scope("thread")
+//    public WebDriver firefoxDriver() {
+//        System.setProperty("webdriver.gecko.driver", this.getClass().getClassLoader().getResource("geckodriver").getPath());
+//        FirefoxDriver driver = new FirefoxDriver();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+//        driver.manage().window().maximize();
+//        return driver;
+//    }
 
     @Bean
     @Scope("thread")
