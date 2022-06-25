@@ -10,10 +10,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.SimpleThreadScope;
 
 import java.net.MalformedURLException;
@@ -40,8 +37,8 @@ public class SpringBootTestsApplication {
     @Bean
     @Primary
     @Scope("thread")
+    @Profile(value = "firefox")
     public WebDriver firefoxDriver() throws MalformedURLException {
-//        System.setProperty("webdriver.gecko.driver", this.getClass().getClassLoader().getResource("geckodriver").getPath());
         WebDriverManager.firefoxdriver().setup();
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName","firefox");
@@ -53,16 +50,17 @@ public class SpringBootTestsApplication {
         return driver;
     }
 
-//    @Bean
-//    @Scope("thread")
-//    public WebDriver chromeDriver() {
-//        WebDriverManager.chromiumdriver().setup();
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--no-sandbox");
-//        options.addArguments("--remote-debugging-port="+(9000+new Random().nextInt(500)));
-//        WebDriver driver = new ChromeDriver();
-//        driver.manage().window().maximize();
-//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-//        return driver;
-//    }
+    @Bean
+    @Scope("thread")
+    @Profile(value = "chrome")
+    public WebDriver chromeDriver() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--remote-debugging-port="+(9000+new Random().nextInt(500)));
+        ChromeDriver driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        return driver;
+    }
 }
