@@ -9,9 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Lazy
 @Component
-@Scope("thread")
+@Scope("webDriver")
 public class MainPage extends BasePage {
     @FindBy(css = "ul.menu-categories_type_main>li>a")
     private List<WebElement> mainCategories;

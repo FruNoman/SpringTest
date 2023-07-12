@@ -17,7 +17,7 @@ import java.util.Random;
 public class RemoteWebDriverConfig {
     @Bean
     @Scope("thread")
-    @Profile(value = "remoteFirefox")
+    @Profile(value = "webDriver")
     public WebDriver remoteFirefoxDriver() throws MalformedURLException {
         WebDriverManager.firefoxdriver().setup();
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -31,7 +31,7 @@ public class RemoteWebDriverConfig {
 
     @Bean
     @Scope("thread")
-    @Profile(value = "remoteChrome")
+    @Profile(value = "webDriver")
     public WebDriver remoteChromeDriver() throws MalformedURLException {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();

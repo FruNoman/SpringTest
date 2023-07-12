@@ -17,11 +17,4 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     public void beforeMethod() {
         driver.get("https://rozetka.com.ua/ua/");
     }
-
-    @AfterMethod
-    public void afterMethod() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 }

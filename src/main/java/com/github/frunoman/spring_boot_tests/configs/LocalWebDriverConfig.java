@@ -14,9 +14,9 @@ import java.util.Random;
 @Configuration
 public class LocalWebDriverConfig {
     @Bean
-    @Scope("thread")
+    @Scope("webDriver")
     @Profile(value = "localChrome")
-    public WebDriver driver() {
+    public WebDriver chromeDriver() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 //        options.setBinary("/usr/bin/google-chrome");
@@ -34,14 +34,14 @@ public class LocalWebDriverConfig {
 
     @Bean
     @Primary
-    @Scope("thread")
+    @Scope("webDriver")
     @Profile(value = "localFirefox")
     public WebDriver firefoxDriver() {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary("/usr/bin/firefox");
         WebDriver driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         return driver;
     }

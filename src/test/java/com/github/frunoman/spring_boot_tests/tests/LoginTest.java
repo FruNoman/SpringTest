@@ -14,4 +14,10 @@ public class LoginTest extends BaseTest{
         mainPage.clickOnCategory(Category.SMARTPHONES_AND_TV);
         Thread.sleep(5000);
     }
+
+    @Test
+    public void anotherTest() throws InterruptedException {
+        mainPage.clickOnCategory(Category.SMARTPHONES_AND_TV);
+        Thread.sleep(5000);
+    }
 }

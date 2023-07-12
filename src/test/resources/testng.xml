@@ -5,14 +5,4 @@
             <class name="com.github.frunoman.spring_boot_tests.tests.LoginTest"/>
         </classes>
     </test>
-    <test name="PapaTest">
-        <classes>
-            <class name="com.github.frunoman.spring_boot_tests.tests.LoginTest"/>
-        </classes>
-    </test>
-    <test name="MamaTest">
-        <classes>
-            <class name="com.github.frunoman.spring_boot_tests.tests.LoginTest"/>
-        </classes>
-    </test>
 </suite>
